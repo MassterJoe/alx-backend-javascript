@@ -9,6 +9,7 @@ export default function handleResponseFromAPI(promise) {
         } else {
             const obj2 = {} 
             reject(new Error(obj2));
+            return new Error();
         }
     })
         .finally((response) => {
