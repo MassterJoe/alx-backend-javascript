@@ -7,7 +7,8 @@ export default function handleResponseFromAPI(promise) {
             }
             resolve(obj);
         } else {
-            reject(new Error({}));
+            const obj2 = {} 
+            reject(new Error(obj2));
         }
     })
         .finally((response) => {
