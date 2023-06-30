@@ -9,7 +9,7 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
           status: value.status,
           value: value.value,
         }];
-      } return [{
+      } else return [{
         status: value.status,
         reason: String(value.reason),
       }];
