@@ -7,15 +7,10 @@ export default function asyncUploadUser() {
         photo: { status: `${photo.status}`, body: `${photo.body}` },
         user: { firstName: `${user.firstName}`, lastName: `${user.lastName}` },
       };
-      return obj;
-    });
-
-  return Promise.race([uploadPhoto(), createUser()])
-    .then(([photo, user]) => {
-      const obj = {
-        photo: null,
-        user: null,
-      };
-      return obj;
+      try {
+        return obj;
+      } catch (_) {
+        return { photo: null, user: null };
+      }
     });
 }
