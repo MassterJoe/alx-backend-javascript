@@ -4,12 +4,9 @@ export default class Pricing {
   constructor(amount, currency) {
     if (typeof amount !== 'number') {
       throw new Error('Amount must be a number');
-    } else if (!(currency instanceof Currency)) {
-      throw new Error('Currency must be an instance of Currency');
-    } else {
-      this._amount = amount;
-      this._currency = currency;
     }
+    this._amount = amount;
+    this._currency = currency;
   }
 
   // getters and setters
