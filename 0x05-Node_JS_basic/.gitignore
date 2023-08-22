@@ -1,6 +1,1 @@
-node_modules/
-0-main.js
-babel.config.js
-database.csv 
-package.json 
-package-lock.json
+ node_modules/
