@@ -1,38 +1,35 @@
 const fs = require('fs');
 
-function countStudents(fileName) {
-  const students = {};
-  const fields = {};
-  let length = 0;
+function countStudents(filepath) {
   try {
-    const fileContents = fs.readFileSync(fileName, 'utf-8');
-    const lines = fileContents.toString().split('\n');
-    for (let i = 0; i < lines.length; i += 1) {
-      if (lines[i]) {
-        length += 1;
-        const field = lines[i].toString().split(',');
-        if (Object.prototype.hasOwnProperty.call(students, field[3])) {
-          students[field[3]].push(field[0]);
-        } else {
-          students[field[3]] = [field[0]];
-        }
-        if (Object.prototype.hasOwnProperty.call(fields, field[3])) {
-          fields[field[3]] += 1;
-        } else {
-          fields[field[3]] = 1;
-        }
-      }
+    const filecontent = fs.readFileSync(filepath, 'utf-8');
+
+    const students = filecontent.trim().split('\n');
+    if (students.length === 0) {
+      throw new Error('Cannot load the database');
     }
-    const l = length - 1;
-    console.log(`Number of students: ${l}`);
-    for (const [key, value] of Object.entries(fields)) {
-      if (key !== 'field') {
-        console.log(`Number of students in ${key}: ${value}. List: ${students[key].join(', ')}`);
-      }
+    const fields = students[0].split(',');
+    const studentsByField = []
+    for (let i = 1; i < fields.length; i++) {
+      studentsByField[fields[i]] = [];
     }
-  } catch (error) {
-    throw Error('Cannot load the database');
+    for (let i = 1; i < students.length; i++) {
+      const studentData = students[i].split(',');
+      if (studentData.length !== fields.length) {
+        continue;
+      }
+      for (let i = 1; i < studentData.length; i++) {
+        studentsByField[fields[i]].push(studentData[i]);
+      }
+      console.log(`Number of students: ${students.length - 1}`);
+      for (const field in studentsByField) {
+        console.log(`Number of students in ${field}: ${studentsByField[field].length}. List: ${studentsByField[field].join(',')}`);
+      }
+    
+    }
+  }
+  catch (err) {
+    console.error('Error:', err.message);
   }
 }
-
 module.exports = countStudents;
